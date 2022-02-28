@@ -8,9 +8,8 @@ namespace ECommerce.Core.Entities
 {
     public class Category
     {
-        public Category(int id, string name, string description)
+        public Category(string name, string description)
         {
-            Id = id;
             Name = name;
             Description = description;
 

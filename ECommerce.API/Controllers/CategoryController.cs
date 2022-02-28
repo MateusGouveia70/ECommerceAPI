@@ -53,20 +53,16 @@ namespace ECommerce.API.Controllers
         public IActionResult AddCategory(AddCategoryInputModel model)
         {
             var category = new Category(
-                model.Id,
                 model.Name,
                 model.Description);
 
             _dbContext.Categories.Add(category);
-
-            var categoryView = _dbContext.Categories.SingleOrDefault(c => c.Id == model.Id);
-
-            if (categoryView == null) return NotFound();
+            _dbContext.SaveChanges();
 
             var categoryViewModel = new CategoryViewModel(
-                categoryView.Id,
-                categoryView.Name,
-                categoryView.Description);
+                category.Id,
+                category.Name,
+                category.Description);
 
             
             return Ok(categoryViewModel);
@@ -80,7 +76,7 @@ namespace ECommerce.API.Controllers
             if (category == null) return NotFound();
 
             category.UpdateCategory(model.Name, model.Description);
-            // save
+            _dbContext.SaveChanges();
 
             var categoryViewModel = new CategoryViewModel(
                 category.Id,
@@ -95,7 +91,14 @@ namespace ECommerce.API.Controllers
         {
             var category = _dbContext.Categories.SingleOrDefault(c =>c.Id == id);
 
+            if (category == null) return NotFound();
+
+            var product = _dbContext.Products.FirstOrDefault(p => p.Category_Id == id);
+
+            if (product != null) return BadRequest("A categoria não poderá ser deletada se tiver relacionada com um produto.");
+
             _dbContext.Categories.Remove(category);
+            _dbContext.SaveChanges();
 
             return Ok();
         }

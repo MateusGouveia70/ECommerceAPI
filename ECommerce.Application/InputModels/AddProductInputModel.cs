@@ -8,11 +8,10 @@ namespace ECommerce.Application.InputModels
 {
     public class AddProductInputModel
     {
-        public int Id { get; private set; }
-        public string Name { get; private set; }
+        public string Name { get; set; }
         public string Description { get; set; }
-        public decimal Value { get; private set; }
-        public string Brand { get; private set; }
-        public int Category_Id { get; private set; }
+        public decimal Value { get; set; }
+        public string Brand { get; set; }
+        public int Category_Id { get; set; }
     }
 }

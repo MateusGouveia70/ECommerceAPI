@@ -3,6 +3,7 @@ using ECommerce.Application.ViewModels;
 using ECommerce.Core.Entities;
 using ECommerce.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace ECommerce.API.Controllers
@@ -21,9 +22,7 @@ namespace ECommerce.API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var products = _dbContext.Products.ToList();
-
-            var productViewModel = products.Select(p => new ProductViewModel( 
+            var productAndCategory = _dbContext.Products.Include(p => p.Category).Select(p => new ProductViewModel(
                 p.Id,
                 p.Name,
                 p.Description,
@@ -32,24 +31,35 @@ namespace ECommerce.API.Controllers
                 p.Category.Name,
                 p.Category.Description)).ToList();
 
+            var productViewModel = productAndCategory.Select(p => new ProductViewModel(
+                p.Id,
+                p.Name,
+                p.Description,
+                p.Categoria_Id,
+                p.CategoriaId,
+                p.CategoryName,
+                p.CategoryDescription)).ToList();
+
             return Ok(productViewModel);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var product = _dbContext.Products.SingleOrDefault(p => p.Id == id);
+            var productAndCategory = _dbContext.Products
+                .Include(p => p.Category)
+                .SingleOrDefault(p => p.Id == id);
 
-            if (product == null) return NotFound();
+            if (productAndCategory == null) return NotFound();
 
             var productViewModel = new ProductViewModel(
-                product.Id,
-                product.Name,
-                product.Description,
-                product.Category_Id,
-                product.Category.Id,
-                product.Category.Name,
-                product.Category.Description);
+                productAndCategory.Id,
+                productAndCategory.Name,
+                productAndCategory.Description,
+                productAndCategory.Category_Id,
+                productAndCategory.Category.Id,
+                productAndCategory.Category.Name,
+                productAndCategory.Category.Description);
 
             return Ok(productViewModel);
         }
@@ -58,29 +68,33 @@ namespace ECommerce.API.Controllers
         public IActionResult AddProduct(AddProductInputModel model)
         {
             var product = new Product(
-                model.Id,
                 model.Name,
                 model.Description,
                 model.Value,
                 model.Brand,
                 model.Category_Id);
 
+            var category = _dbContext.Categories.SingleOrDefault(c => product.Category_Id == c.Id);
+
+            if (category == null) return BadRequest($"A categoria de Id : {product.Category_Id} não está cadastrada no sistema");
+
+
             _dbContext.Products.Add(product);
+            _dbContext.SaveChanges();
 
-            var productView = _dbContext.Products.SingleOrDefault(p => p.Id == product.Id);
-
-            if (productView == null) return NotFound();
+            
+            var productAndCategory = _dbContext.Products.Include(p => p.Category).SingleOrDefault(p => p.Id == product.Id);
 
             var productViewModel = new ProductViewModel(
-                productView.Id,
-                productView.Name,
-                product.Description,
-                product.Category_Id,
-                product.Category.Id,
-                product.Category.Name,
-                product.Category.Description);
+                productAndCategory.Id,
+                productAndCategory.Name,
+                productAndCategory.Description,
+                productAndCategory.Category_Id,
+                productAndCategory.Category.Id,
+                productAndCategory.Category.Name,
+                productAndCategory.Category.Description);
           
-            return Ok(productView);
+            return Ok(productViewModel);
         }
 
         [HttpPut]
@@ -91,16 +105,23 @@ namespace ECommerce.API.Controllers
             if(product == null) return NotFound();
 
             product.UpdateProduct(model.Id, model.Name, model.Description, model.Value, model.Brand, model.Category_Id);
-            // save
+
+            var category = _dbContext.Categories.SingleOrDefault(c => c.Id == product.Category_Id);
+
+            if (category == null) return BadRequest($"A categoria de Id: {product.Category_Id} não está cadastrada no sistema");
+
+            _dbContext.SaveChanges();
+
+            var productAndCategory = _dbContext.Products.Include(p => p.Category).SingleOrDefault(p => p.Id == product.Id);
 
             var productViewModel = new ProductViewModel(
-                product.Id,
-                product.Name,
-                product.Description,
-                product.Category_Id,
-                product.Category.Id,
-                product.Category.Name,
-                product.Category.Description);
+                productAndCategory.Id,
+                productAndCategory.Name,
+                productAndCategory.Description,
+                productAndCategory.Category_Id,
+                productAndCategory.Category.Id,
+                productAndCategory.Category.Name,
+                productAndCategory.Category.Description);
 
             return Ok(productViewModel); 
         }
@@ -110,8 +131,10 @@ namespace ECommerce.API.Controllers
         {
             var product = _dbContext.Products.SingleOrDefault(p => p.Id == id);
 
+            if (product == null) return NotFound();
+
             _dbContext.Products.Remove(product);
-            //save
+            _dbContext.SaveChanges();
 
             return Ok();
         }
