@@ -75,6 +75,42 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "ECommerce.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "ECommerce.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ECommerce.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ECommerce.Application.dll": {}
+        }
+      },
+      "ECommerce.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/ECommerce.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ECommerce.Core.dll": {}
+        }
+      },
+      "ECommerce.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "ECommerce.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ECommerce.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ECommerce.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -185,10 +221,28 @@
         "swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
+    },
+    "ECommerce.Application/1.0.0": {
+      "type": "project",
+      "path": "../ECommerce.Application/ECommerce.Application.csproj",
+      "msbuildProject": "../ECommerce.Application/ECommerce.Application.csproj"
+    },
+    "ECommerce.Core/1.0.0": {
+      "type": "project",
+      "path": "../ECommerce.Core/ECommerce.Core.csproj",
+      "msbuildProject": "../ECommerce.Core/ECommerce.Core.csproj"
+    },
+    "ECommerce.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../ECommerce.Infrastructure/ECommerce.Infrastructure.csproj",
+      "msbuildProject": "../ECommerce.Infrastructure/ECommerce.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "ECommerce.Application >= 1.0.0",
+      "ECommerce.Core >= 1.0.0",
+      "ECommerce.Infrastructure >= 1.0.0",
       "Swashbuckle.AspNetCore >= 5.6.3"
     ]
   },
@@ -223,7 +277,17 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Dev\\ECommerce\\ECommerce.Application\\ECommerce.Application.csproj": {
+              "projectPath": "C:\\Dev\\ECommerce\\ECommerce.Application\\ECommerce.Application.csproj"
+            },
+            "C:\\Dev\\ECommerce\\ECommerce.Core\\ECommerce.Core.csproj": {
+              "projectPath": "C:\\Dev\\ECommerce\\ECommerce.Core\\ECommerce.Core.csproj"
+            },
+            "C:\\Dev\\ECommerce\\ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj": {
+              "projectPath": "C:\\Dev\\ECommerce\\ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

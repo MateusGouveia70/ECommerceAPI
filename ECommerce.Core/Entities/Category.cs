@@ -22,5 +22,11 @@ namespace ECommerce.Core.Entities
         public string Description { get; private set; }
         public List<Product> Products { get; private set; }
 
+
+        public void UpdateCategory(string name, string description)
+        {
+            Name = name;
+            Description=description;
+        }
     }
 }

@@ -26,3 +26,9 @@ C:\Dev\ECommerce\ECommerce.API\obj\Debug\net5.0\ECommerce.API.dll
 C:\Dev\ECommerce\ECommerce.API\obj\Debug\net5.0\ref\ECommerce.API.dll
 C:\Dev\ECommerce\ECommerce.API\obj\Debug\net5.0\ECommerce.API.pdb
 C:\Dev\ECommerce\ECommerce.API\obj\Debug\net5.0\ECommerce.API.genruntimeconfig.cache
+C:\Dev\ECommerce\ECommerce.API\bin\Debug\net5.0\ECommerce.Application.dll
+C:\Dev\ECommerce\ECommerce.API\bin\Debug\net5.0\ECommerce.Core.dll
+C:\Dev\ECommerce\ECommerce.API\bin\Debug\net5.0\ECommerce.Infrastructure.dll
+C:\Dev\ECommerce\ECommerce.API\bin\Debug\net5.0\ECommerce.Application.pdb
+C:\Dev\ECommerce\ECommerce.API\bin\Debug\net5.0\ECommerce.Core.pdb
+C:\Dev\ECommerce\ECommerce.API\bin\Debug\net5.0\ECommerce.Infrastructure.pdb

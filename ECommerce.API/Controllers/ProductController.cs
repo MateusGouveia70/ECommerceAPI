@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ECommerce.Application.InputModels;
+using ECommerce.Application.ViewModels;
+using ECommerce.Core.Entities;
+using ECommerce.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace ECommerce.API.Controllers
 {
@@ -6,33 +11,108 @@ namespace ECommerce.API.Controllers
     [Route("api/[controller]")]
     public class ProductController : ControllerBase
     {
+        private readonly ECommerceDbContext _dbContext;
+
+        public ProductController(ECommerceDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok();
+            var products = _dbContext.Products.ToList();
+
+            var productViewModel = products.Select(p => new ProductViewModel(
+                p.Id,
+                p.Name,
+                p.Description,
+                p.Category_Id,
+                p.Category.Id,
+                p.Category.Name,
+                p.Category.Description)).ToList();
+
+            return Ok(productViewModel);
         }
 
-        [HttpGet("{Id}")]
+        [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            return Ok();
+            var product = _dbContext.Products.SingleOrDefault(p => p.Id == id);
+
+            if (product == null) return NotFound();
+
+            var productViewModel = new ProductViewModel(
+                product.Id,
+                product.Name,
+                product.Description,
+                product.Category_Id,
+                product.Category.Id,
+                product.Category.Name,
+                product.Category.Description);
+
+            return Ok(productViewModel);
         }
 
         [HttpPost]
-        public IActionResult AddProduct()
+        public IActionResult AddProduct(AddProductInputModel model)
         {
-            return Ok();
+            var product = new Product(
+                model.Id,
+                model.Name,
+                model.Description,
+                model.Value,
+                model.Brand,
+                model.Category_Id);
+
+            _dbContext.Products.Add(product);
+
+            var productView = _dbContext.Products.SingleOrDefault(p => p.Id == product.Id);
+
+            if (productView == null) return NotFound();
+
+            var productViewModel = new ProductViewModel(
+                productView.Id,
+                productView.Name,
+                product.Description,
+                product.Category_Id,
+                product.Category.Id,
+                product.Category.Name,
+                product.Category.Description);
+          
+            return Ok(productView);
         }
 
         [HttpPut]
-        public IActionResult UpdateProduct()
+        public IActionResult UpdateProduct(UpdateProductInputModel model)
         {
-            return Ok();
+            var product = _dbContext.Products.SingleOrDefault(p => p.Id == model.Id);
+
+            if(product == null) return NotFound();
+
+            product.UpdateProduct(model.Id, model.Name, model.Description, model.Value, model.Brand, model.Category_Id);
+            // save
+
+            var productViewModel = new ProductViewModel(
+                product.Id,
+                product.Name,
+                product.Description,
+                product.Category_Id,
+                product.Category.Id,
+                product.Category.Name,
+                product.Category.Description);
+
+            return Ok(productViewModel); 
         }
 
-        [HttpDelete]
-        public IActionResult DeleteProduct()
+        [HttpDelete("{id}")]
+        public IActionResult DeleteProduct(int id)
         {
+            var product = _dbContext.Products.SingleOrDefault(p => p.Id == id);
+
+            _dbContext.Products.Remove(product);
+            //save
+
             return Ok();
         }
     }
