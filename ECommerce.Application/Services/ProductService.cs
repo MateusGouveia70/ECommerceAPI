@@ -69,7 +69,7 @@ namespace ECommerce.Application.Services
                 model.Brand,
                 model.Category_Id);
 
-            var category = _categoryRepository.GetByIdAsync(product.Category_Id);
+            var category = await _categoryRepository.GetByIdAsync(product.Category_Id);
 
             if (category != null)
             {
