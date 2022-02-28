@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Fa8QrMApxrNHO6gMLEd4oe/nyV3OJlANVtOKzNpaR3y67n7m3Wb1SK6dZfTngxRmxGRuDBJN8pRmbmQUkHz9+A==",
+  "dgSpecHash": "RRC1lJfaUH+h9qxuAEC/csbOFDc250299o2y8nyIcKwG/q3jp3zkF4YQT9WDuGtiZjk+21jnQvTec7XFIlDN7g==",
   "success": true,
-  "projectFilePath": "C:\\Dev\\ECommerce\\ECommerce.API\\ECommerce.API.csproj",
+  "projectFilePath": "C:\\Dev\\ECommerce\\Ecommerce.API\\Ecommerce.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mateu\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\mateu\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
