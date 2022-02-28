@@ -10,11 +10,11 @@ namespace ECommerce.Application.Services.Interfaces
 {
     public interface ICategoryService
     {
-        List<CategoryViewModel> GetAllCategory();
-        CategoryViewModel GetCategory(int id);
-        CategoryViewModel AddCategoy(AddCategoryInputModel model);
-        CategoryViewModel UpdateCategory(UpdateCategoryInputModel model);
-        bool DeleteCategory(int id);
+        Task<List<CategoryViewModel>> GetAllCategory();
+        Task<CategoryViewModel> GetCategory(int id);
+        Task<CategoryViewModel> AddCategoy(AddCategoryInputModel model);
+        Task<CategoryViewModel> UpdateCategoyAsync(UpdateCategoryInputModel model);
+        Task<bool> DeleteCategory(int id);
       
     }
 }

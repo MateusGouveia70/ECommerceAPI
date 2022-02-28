@@ -2,6 +2,7 @@
 using ECommerce.Application.Services.Interfaces;
 using ECommerce.Application.ViewModels;
 using ECommerce.Core.Entities;
+using ECommerce.Core.Repositories;
 using ECommerce.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,16 +15,21 @@ namespace ECommerce.Application.Services
 {
     public class ProductService : IProductService
     {
-        private readonly ECommerceDbContext _dbContext;
+        private readonly IProductRepository _productRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public ProductService(ECommerceDbContext dbContext)
+        public ProductService(IProductRepository productRepository, ICategoryRepository categoryRepository)
         {
-            _dbContext = dbContext;
+            _productRepository = productRepository;
+            _categoryRepository = categoryRepository; 
         }
 
-        public List<ProductViewModel> GetAllProducts()
+        public async Task<List<ProductViewModel>> GetAllProducts()
         {
-            var productAndCategory = _dbContext.Products.Include(p => p.Category).Select(p => new ProductViewModel(
+            var productAndCategory = await _productRepository.GetAllAsync();
+
+
+            var productViewModel = productAndCategory.Select(p => new ProductViewModel(
                 p.Id,
                 p.Name,
                 p.Description,
@@ -31,24 +37,14 @@ namespace ECommerce.Application.Services
                 p.Category.Id,
                 p.Category.Name,
                 p.Category.Description)).ToList();
-
-            var productViewModel = productAndCategory.Select(p => new ProductViewModel(
-                p.Id,
-                p.Name,
-                p.Description,
-                p.Categoria_Id,
-                p.CategoriaId,
-                p.CategoryName,
-                p.CategoryDescription)).ToList();
+               
 
             return productViewModel;
         }
 
-        public ProductViewModel GetProduct(int id)
+        public async Task<ProductViewModel> GetProduct(int id)
         {
-            var productAndCategory = _dbContext.Products
-                .Include(p => p.Category)
-                .SingleOrDefault(p => p.Id == id);
+            var productAndCategory = await _productRepository.GetByIdAsync(id);
 
 
             if (productAndCategory != null)
@@ -68,7 +64,7 @@ namespace ECommerce.Application.Services
             return null;
         }
 
-        public ProductViewModel AddProduct(AddProductInputModel model)
+        public async Task<ProductViewModel> AddProduct(AddProductInputModel model)
         {
             var product = new Product(
                 model.Name,
@@ -77,15 +73,14 @@ namespace ECommerce.Application.Services
                 model.Brand,
                 model.Category_Id);
 
-            var category = _dbContext.Categories.SingleOrDefault(c => product.Category_Id == c.Id);
+            var category = _categoryRepository.GetByIdAsync(product.Category_Id);
 
             if (category != null)
             {
-                _dbContext.Products.Add(product);
-                _dbContext.SaveChanges();
+                await _productRepository.AddProductAsync(product);
 
 
-                var productAndCategory = _dbContext.Products.Include(p => p.Category).SingleOrDefault(p => p.Id == product.Id);
+                var productAndCategory = await _productRepository.GetByIdAsync(product.Id);
 
                 var productViewModel = new ProductViewModel(
                     productAndCategory.Id,
@@ -96,26 +91,27 @@ namespace ECommerce.Application.Services
                     productAndCategory.Category.Name,
                     productAndCategory.Category.Description);
 
-                return productViewModel;
+                return  productViewModel;
             }
 
             return null;
            
         }
 
-        public ProductViewModel UpdateProduct(UpdateProductInputModel model)
+        public async Task<ProductViewModel> UpdateProduct(UpdateProductInputModel model)
         {
-            var product = _dbContext.Products.SingleOrDefault(p => p.Id == model.Id);
+            var product = await _productRepository.GetByIdAsync(model.Id);
 
-            var category = _dbContext.Categories.SingleOrDefault(c => c.Id == model.Category_Id);
+            var category = await _categoryRepository.GetByIdAsync(model.Category_Id);
 
 
             if (product != null && category != null)
             {
                 product.UpdateProduct(model.Name, model.Description, model.Value, model.Brand, model.Category_Id);
-                _dbContext.SaveChanges();
 
-                var productAndCategory = _dbContext.Products.Include(p => p.Category).SingleOrDefault(p => p.Id == product.Id);
+                await _productRepository.SaveChangesAsync();
+
+                var productAndCategory = await _productRepository.GetByIdAsync(product.Id);
 
                 var productViewModel = new ProductViewModel(
                     productAndCategory.Id,
@@ -134,12 +130,9 @@ namespace ECommerce.Application.Services
             
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            var product = _dbContext.Products.SingleOrDefault(p => p.Id == id);
-
-            _dbContext.Products.Remove(product);
-            _dbContext.SaveChanges();
+            await _productRepository.DeleteAsync(id);
         }
     }
 }

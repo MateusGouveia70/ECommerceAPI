@@ -10,10 +10,10 @@ namespace ECommerce.Application.Services.Interfaces
 {
     public interface IProductService
     {
-        List<ProductViewModel> GetAllProducts();
-        ProductViewModel GetProduct(int id);
-        ProductViewModel AddProduct(AddProductInputModel model);
-        ProductViewModel UpdateProduct(UpdateProductInputModel model);
-        void Delete(int id);
+        Task<List<ProductViewModel>> GetAllProducts();
+        Task<ProductViewModel> GetProduct(int id);
+        Task<ProductViewModel> AddProduct(AddProductInputModel model);
+        Task<ProductViewModel> UpdateProduct(UpdateProductInputModel model);
+        Task Delete(int id);
     }
 }

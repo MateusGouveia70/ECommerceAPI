@@ -5,6 +5,7 @@ using ECommerce.Core.Entities;
 using ECommerce.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ECommerce.API.Controllers
 {
@@ -48,7 +49,7 @@ namespace ECommerce.API.Controllers
         [HttpPut]
         public IActionResult UpdateCategory(UpdateCategoryInputModel model) 
         {
-            var categoryViewModel = _categoryService.UpdateCategory(model);
+            var categoryViewModel = _categoryService.UpdateCategoyAsync(model);
 
             if (categoryViewModel == null) return NotFound();
 
@@ -56,11 +57,11 @@ namespace ECommerce.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteCategory(int id)
+        public async Task<IActionResult> DeleteCategory(int id)
         {
-            var delete = _categoryService.DeleteCategory(id);
+            var delete = await _categoryService.DeleteCategory(id);
 
-            if(delete == false) return BadRequest("A categoria não poderá ser deletada se tiver relacionada com um produto.");
+            if (delete) return BadRequest("Categoria não se encontra ou tem um produto cadastrado com essse Id");
 
             return Ok();
         }

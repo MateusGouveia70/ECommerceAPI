@@ -2,6 +2,7 @@
 using ECommerce.Application.Services.Interfaces;
 using ECommerce.Application.ViewModels;
 using ECommerce.Core.Entities;
+using ECommerce.Core.Repositories;
 using ECommerce.Infrastructure.Persistence;
 using System;
 using System.Collections.Generic;
@@ -13,16 +14,18 @@ namespace ECommerce.Application.Services
 {
     public class CategoryService : ICategoryService
     {
-        private readonly ECommerceDbContext _dbContext;
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IProductRepository _productRepository;
 
-        public CategoryService(ECommerceDbContext dbContext)
+        public CategoryService(ICategoryRepository categoryRepository, IProductRepository productRepository)
         {
-            _dbContext = dbContext;
+            _categoryRepository = categoryRepository;
+            _productRepository = productRepository;
         }
 
-        public List<CategoryViewModel> GetAllCategory()
-        {
-            var categories = _dbContext.Categories.ToList();
+        public async Task<List<CategoryViewModel>> GetAllCategory()
+        { 
+            var categories = await _categoryRepository.GetAllAsync();
 
             var categoryViewModel = categories
                 .Select(c => new CategoryViewModel(
@@ -34,10 +37,9 @@ namespace ECommerce.Application.Services
             return categoryViewModel;
         }
 
-        public CategoryViewModel GetCategory(int id)
+        public async Task<CategoryViewModel> GetCategory(int id)
         {
-            var category = _dbContext.Categories
-                .SingleOrDefault(c => c.Id == id);
+            var category = await _categoryRepository.GetByIdAsync(id);
 
             if (category == null) return null;
 
@@ -49,14 +51,13 @@ namespace ECommerce.Application.Services
             return categoryViewModel;
         }
 
-        public CategoryViewModel AddCategoy(AddCategoryInputModel model)
+        public async Task<CategoryViewModel> AddCategoy(AddCategoryInputModel model)
         {
             var category = new Category(
                 model.Name,
                 model.Description);
 
-            _dbContext.Categories.Add(category);
-            _dbContext.SaveChanges();
+            await _categoryRepository.AddCategoryAsync(category);
 
             var categoryViewModel = new CategoryViewModel(
                 category.Id,
@@ -66,14 +67,15 @@ namespace ECommerce.Application.Services
             return categoryViewModel;
         }
 
-        public CategoryViewModel UpdateCategory(UpdateCategoryInputModel model)
+        public async Task<CategoryViewModel> UpdateCategoyAsync(UpdateCategoryInputModel model) 
         {
-            var category = _dbContext.Categories.SingleOrDefault(c => c.Id == model.Id);
+            var category = await _categoryRepository.GetByIdAsync(model.Id); 
 
             if (category == null) return null;
 
             category.UpdateCategory(model.Name, model.Description);
-            _dbContext.SaveChanges();
+            
+            await _categoryRepository.SaveChangesAsync();
 
             var categoryViewModel = new CategoryViewModel(
                 category.Id,
@@ -81,19 +83,20 @@ namespace ECommerce.Application.Services
                 category.Description);
 
             return categoryViewModel;
-        }
+        } 
 
-        public bool DeleteCategory(int id)
+        public async Task<bool> DeleteCategory(int id)
         {
-            var category = _dbContext.Categories.SingleOrDefault(c => c.Id == id);
+            var category = await _categoryRepository.GetByIdAsync(id);
 
-            var product = _dbContext.Products.FirstOrDefault(p => p.Category_Id == id);
+            var product = await _productRepository.GetByIdAsync(category.Id);
+
+            // product.Category.Id = category.Id;
+
 
             if (category == null || product != null) return false;
 
-            _dbContext.Categories.Remove(category);
-            _dbContext.SaveChanges();
-
+            
             return true;
 
         }

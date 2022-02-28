@@ -1,6 +1,8 @@
 using ECommerce.Application.Services;
 using ECommerce.Application.Services.Interfaces;
+using ECommerce.Core.Repositories;
 using ECommerce.Infrastructure.Persistence;
+using ECommerce.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -14,6 +16,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ECommerce.API
@@ -37,6 +40,13 @@ namespace ECommerce.API
 
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductService, ProductService>();
+
+
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+
+
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

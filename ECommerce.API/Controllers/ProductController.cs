@@ -63,6 +63,18 @@ namespace ECommerce.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteProduct(int id)
         {
+            _productService.Delete(id);
+
+            return Ok();
+        }
+    }
+}
+
+/*
+ 
+   [HttpDelete("{id}")]
+        public IActionResult DeleteProduct(int id)
+        {
             try
             {
                 _productService.Delete(id);
@@ -77,5 +89,4 @@ namespace ECommerce.API.Controllers
             }
 
         }
-    }
-}
+ */
