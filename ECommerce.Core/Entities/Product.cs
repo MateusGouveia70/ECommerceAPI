@@ -26,9 +26,8 @@ namespace ECommerce.Core.Entities
         public Category Category { get; private set; }
 
 
-        public void UpdateProduct(int id, string name, string description, decimal value, string brand, int category_Id)
+        public void UpdateProduct(string name, string description, decimal value, string brand, int category_Id)
         {
-            Id = id;
             Name = name;
             Description = description;
             Value = value;

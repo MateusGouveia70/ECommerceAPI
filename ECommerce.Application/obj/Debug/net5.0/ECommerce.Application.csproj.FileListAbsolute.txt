@@ -13,3 +13,5 @@ C:\Dev\ECommerce\ECommerce.Application\obj\Debug\net5.0\ECommerce.Application.cs
 C:\Dev\ECommerce\ECommerce.Application\obj\Debug\net5.0\ECommerce.Application.dll
 C:\Dev\ECommerce\ECommerce.Application\obj\Debug\net5.0\ref\ECommerce.Application.dll
 C:\Dev\ECommerce\ECommerce.Application\obj\Debug\net5.0\ECommerce.Application.pdb
+C:\Dev\ECommerce\ECommerce.Application\bin\Debug\net5.0\ECommerce.Infrastructure.dll
+C:\Dev\ECommerce\ECommerce.Application\bin\Debug\net5.0\ECommerce.Infrastructure.pdb

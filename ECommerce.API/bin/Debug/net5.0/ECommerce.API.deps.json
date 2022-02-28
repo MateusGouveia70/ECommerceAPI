@@ -31,7 +31,7 @@
   },
   "targets": {
     ".NETCoreApp,Version=v5.0": {
-      "Ecommerce.API/1.0.0": {
+      "ECommerce.API/1.0.0": {
         "dependencies": {
           "ECommerce.Application": "1.0.0",
           "ECommerce.Core": "1.0.0",
@@ -322,10 +322,10 @@
           "WindowsBase": "4.0.0.0"
         },
         "runtime": {
-          "Ecommerce.API.dll": {}
+          "ECommerce.API.dll": {}
         },
         "compile": {
-          "Ecommerce.API.dll": {}
+          "ECommerce.API.dll": {}
         }
       },
       "Humanizer.Core/2.8.26": {
@@ -1391,7 +1391,8 @@
       },
       "ECommerce.Application/1.0.0": {
         "dependencies": {
-          "ECommerce.Core": "1.0.0"
+          "ECommerce.Core": "1.0.0",
+          "ECommerce.Infrastructure": "1.0.0"
         },
         "runtime": {
           "ECommerce.Application.dll": {}
@@ -3110,7 +3111,7 @@
     }
   },
   "libraries": {
-    "Ecommerce.API/1.0.0": {
+    "ECommerce.API/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

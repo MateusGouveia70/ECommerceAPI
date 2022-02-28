@@ -1,3 +1,5 @@
+using ECommerce.Application.Services;
+using ECommerce.Application.Services.Interfaces;
 using ECommerce.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,6 +34,9 @@ namespace ECommerce.API
 
             services.AddDbContext<ECommerceDbContext>(
                 options => options.UseSqlServer(connectionString));
+
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IProductService, ProductService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
