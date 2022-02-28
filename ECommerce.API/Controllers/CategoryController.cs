@@ -21,17 +21,17 @@ namespace ECommerce.API.Controllers
         }
         
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var category = _categoryService.GetAllCategory();
+            var category = await _categoryService.GetAllCategory();
 
             return Ok(category);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var categoryViewModel = _categoryService.GetCategory(id);
+            var categoryViewModel = await _categoryService.GetCategory(id);
 
             if (categoryViewModel == null) return NotFound();
 
@@ -39,17 +39,17 @@ namespace ECommerce.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddCategory(AddCategoryInputModel model)
+        public async Task<IActionResult> AddCategory(AddCategoryInputModel model)
         {
-            var categoryViewModel = _categoryService.AddCategoy(model);
+            var categoryViewModel = await _categoryService.AddCategoy(model);
 
             return Ok(categoryViewModel);
         }
 
         [HttpPut]
-        public IActionResult UpdateCategory(UpdateCategoryInputModel model) 
+        public async Task<IActionResult> UpdateCategory(UpdateCategoryInputModel model) 
         {
-            var categoryViewModel = _categoryService.UpdateCategoyAsync(model);
+            var categoryViewModel = await _categoryService.UpdateCategoyAsync(model);
 
             if (categoryViewModel == null) return NotFound();
 

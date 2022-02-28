@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace ECommerce.API.Controllers
 {
@@ -23,17 +24,17 @@ namespace ECommerce.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var productViewModel = _productService.GetAllProducts();
+            var productViewModel = await _productService.GetAllProducts();
 
             return Ok(productViewModel);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var productAndCategory = _productService.GetProduct(id);
+            var productAndCategory = await _productService.GetProduct(id);
 
             if (productAndCategory == null) return NotFound();
 
@@ -41,9 +42,9 @@ namespace ECommerce.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProduct(AddProductInputModel model)
+        public async Task<IActionResult> AddProduct(AddProductInputModel model)
         {
-            var productViewModel = _productService.AddProduct(model);
+            var productViewModel = await _productService.AddProduct(model);
 
             if (productViewModel == null) return BadRequest($"A categoria do produto não está cadastrada no sistema");
           
@@ -51,9 +52,9 @@ namespace ECommerce.API.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateProduct(UpdateProductInputModel model)
+        public async Task<IActionResult> UpdateProduct(UpdateProductInputModel model)
         {
-           var productViewModel = _productService.UpdateProduct(model);
+           var productViewModel = await _productService.UpdateProduct(model);
 
             if (productViewModel == null) return BadRequest($"Não tem o msm Id ou Não possui a categoria");
 
@@ -61,9 +62,9 @@ namespace ECommerce.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteProduct(int id)
+        public async Task<IActionResult> DeleteProduct(int id)
         {
-            _productService.Delete(id);
+            await _productService.Delete(id);
 
             return Ok();
         }
