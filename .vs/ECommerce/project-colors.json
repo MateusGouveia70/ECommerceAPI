@@ -1,0 +1,26 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "7a87108b-ffd4-4285-b543-76ffc6f3e232": {
+      "ProjectGuid": "7a87108b-ffd4-4285-b543-76ffc6f3e232",
+      "DisplayName": "ECommerce.API",
+      "ColorIndex": 0
+    },
+    "3a5bb703-3f62-4916-a4ca-9519d48d5656": {
+      "ProjectGuid": "3a5bb703-3f62-4916-a4ca-9519d48d5656",
+      "DisplayName": "ECommerce.Core",
+      "ColorIndex": 1
+    },
+    "d1256505-2a72-4f26-b031-9fc0b0e98339": {
+      "ProjectGuid": "d1256505-2a72-4f26-b031-9fc0b0e98339",
+      "DisplayName": "ECommerce.Application",
+      "ColorIndex": 2
+    },
+    "19af00e3-72cf-4daf-834b-ef30ef7d3cbc": {
+      "ProjectGuid": "19af00e3-72cf-4daf-834b-ef30ef7d3cbc",
+      "DisplayName": "ECommerce.Infrastructure",
+      "ColorIndex": 3
+    }
+  },
+  "NextColorIndex": 4
+}

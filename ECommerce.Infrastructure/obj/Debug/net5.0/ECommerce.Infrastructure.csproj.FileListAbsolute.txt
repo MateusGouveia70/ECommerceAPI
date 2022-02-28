@@ -1,4 +1,6 @@
 C:\Dev\ECommerce\ECommerce.Infrastructure\bin\Debug\net5.0\ECommerce.Infrastructure.deps.json
+C:\Dev\ECommerce\ECommerce.Infrastructure\bin\Debug\net5.0\ECommerce.Infrastructure.runtimeconfig.json
+C:\Dev\ECommerce\ECommerce.Infrastructure\bin\Debug\net5.0\ECommerce.Infrastructure.runtimeconfig.dev.json
 C:\Dev\ECommerce\ECommerce.Infrastructure\bin\Debug\net5.0\ECommerce.Infrastructure.dll
 C:\Dev\ECommerce\ECommerce.Infrastructure\bin\Debug\net5.0\ref\ECommerce.Infrastructure.dll
 C:\Dev\ECommerce\ECommerce.Infrastructure\bin\Debug\net5.0\ECommerce.Infrastructure.pdb
@@ -13,3 +15,4 @@ C:\Dev\ECommerce\ECommerce.Infrastructure\obj\Debug\net5.0\ECommerce.Infrastruct
 C:\Dev\ECommerce\ECommerce.Infrastructure\obj\Debug\net5.0\ECommerce.Infrastructure.dll
 C:\Dev\ECommerce\ECommerce.Infrastructure\obj\Debug\net5.0\ref\ECommerce.Infrastructure.dll
 C:\Dev\ECommerce\ECommerce.Infrastructure\obj\Debug\net5.0\ECommerce.Infrastructure.pdb
+C:\Dev\ECommerce\ECommerce.Infrastructure\obj\Debug\net5.0\ECommerce.Infrastructure.genruntimeconfig.cache

@@ -9,7 +9,7 @@ namespace ECommerce.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ProductController : ControllerBase
+    public class ProductController : ControllerBase   // falta o include
     {
         private readonly ECommerceDbContext _dbContext;
 
@@ -23,7 +23,7 @@ namespace ECommerce.API.Controllers
         {
             var products = _dbContext.Products.ToList();
 
-            var productViewModel = products.Select(p => new ProductViewModel(
+            var productViewModel = products.Select(p => new ProductViewModel( 
                 p.Id,
                 p.Name,
                 p.Description,
