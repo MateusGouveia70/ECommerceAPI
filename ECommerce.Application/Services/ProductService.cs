@@ -3,12 +3,8 @@ using ECommerce.Application.Services.Interfaces;
 using ECommerce.Application.ViewModels;
 using ECommerce.Core.Entities;
 using ECommerce.Core.Repositories;
-using ECommerce.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ECommerce.Application.Services

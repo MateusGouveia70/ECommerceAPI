@@ -3,11 +3,8 @@ using ECommerce.Application.Services.Interfaces;
 using ECommerce.Application.ViewModels;
 using ECommerce.Core.Entities;
 using ECommerce.Core.Repositories;
-using ECommerce.Infrastructure.Persistence;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ECommerce.Application.Services
@@ -89,13 +86,16 @@ namespace ECommerce.Application.Services
         {
             var category = await _categoryRepository.GetByIdAsync(id);
 
-            var product = await _productRepository.GetByIdAsync(category.Id);
+            var product = await _productRepository.GetAllAsync();
+
+            if (product.Select(p => p.Category_Id == category.Id).FirstOrDefault()) return false;
 
             // product.Category.Id = category.Id;
 
 
-            if (category == null || product != null) return false;
+            if (category == null) return false;
 
+            await _categoryRepository.DeleteAsync(category.Id);
             
             return true;
 

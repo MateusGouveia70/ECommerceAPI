@@ -1,10 +1,6 @@
 ﻿using ECommerce.Application.InputModels;
 using ECommerce.Application.Services.Interfaces;
-using ECommerce.Application.ViewModels;
-using ECommerce.Core.Entities;
-using ECommerce.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ECommerce.API.Controllers
@@ -61,7 +57,7 @@ namespace ECommerce.API.Controllers
         {
             var delete = await _categoryService.DeleteCategory(id);
 
-            if (delete) return BadRequest("Categoria não se encontra ou tem um produto cadastrado com essse Id");
+            if (!delete) return BadRequest("Categoria não se encontra ou tem um produto cadastrado com essse Id");
 
             return Ok();
         }

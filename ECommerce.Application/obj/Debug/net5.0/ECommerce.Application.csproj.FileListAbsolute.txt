@@ -3,7 +3,9 @@ C:\Dev\ECommerce\ECommerce.Application\bin\Debug\net5.0\ECommerce.Application.dl
 C:\Dev\ECommerce\ECommerce.Application\bin\Debug\net5.0\ref\ECommerce.Application.dll
 C:\Dev\ECommerce\ECommerce.Application\bin\Debug\net5.0\ECommerce.Application.pdb
 C:\Dev\ECommerce\ECommerce.Application\bin\Debug\net5.0\ECommerce.Core.dll
+C:\Dev\ECommerce\ECommerce.Application\bin\Debug\net5.0\ECommerce.Infrastructure.dll
 C:\Dev\ECommerce\ECommerce.Application\bin\Debug\net5.0\ECommerce.Core.pdb
+C:\Dev\ECommerce\ECommerce.Application\bin\Debug\net5.0\ECommerce.Infrastructure.pdb
 C:\Dev\ECommerce\ECommerce.Application\obj\Debug\net5.0\ECommerce.Application.csproj.AssemblyReference.cache
 C:\Dev\ECommerce\ECommerce.Application\obj\Debug\net5.0\ECommerce.Application.GeneratedMSBuildEditorConfig.editorconfig
 C:\Dev\ECommerce\ECommerce.Application\obj\Debug\net5.0\ECommerce.Application.AssemblyInfoInputs.cache
@@ -13,5 +15,3 @@ C:\Dev\ECommerce\ECommerce.Application\obj\Debug\net5.0\ECommerce.Application.cs
 C:\Dev\ECommerce\ECommerce.Application\obj\Debug\net5.0\ECommerce.Application.dll
 C:\Dev\ECommerce\ECommerce.Application\obj\Debug\net5.0\ref\ECommerce.Application.dll
 C:\Dev\ECommerce\ECommerce.Application\obj\Debug\net5.0\ECommerce.Application.pdb
-C:\Dev\ECommerce\ECommerce.Application\bin\Debug\net5.0\ECommerce.Infrastructure.dll
-C:\Dev\ECommerce\ECommerce.Application\bin\Debug\net5.0\ECommerce.Infrastructure.pdb

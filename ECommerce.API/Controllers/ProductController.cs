@@ -1,13 +1,6 @@
 ﻿using ECommerce.Application.InputModels;
 using ECommerce.Application.Services.Interfaces;
-using ECommerce.Application.ViewModels;
-using ECommerce.Core.Entities;
-using ECommerce.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace ECommerce.API.Controllers
@@ -56,7 +49,7 @@ namespace ECommerce.API.Controllers
         {
            var productViewModel = await _productService.UpdateProduct(model);
 
-            if (productViewModel == null) return BadRequest($"Não tem o msm Id ou Não possui a categoria");
+            if (productViewModel == null) return BadRequest($"O produto de Id {model.Id} não está cadastrado ou a categoria informada não existe");
 
             return Ok(productViewModel); 
         }
@@ -71,23 +64,3 @@ namespace ECommerce.API.Controllers
     }
 }
 
-/*
- 
-   [HttpDelete("{id}")]
-        public IActionResult DeleteProduct(int id)
-        {
-            try
-            {
-                _productService.Delete(id);
-                return Ok();
-
-                throw new Exception();
-            }
-            catch (Exception)
-            {
-
-                return StatusCode((int)HttpStatusCode.InternalServerError);
-            }
-
-        }
- */
