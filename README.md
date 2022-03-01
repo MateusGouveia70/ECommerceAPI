@@ -6,6 +6,7 @@ Construindo API usando ASP.NET Core 5, EF Core e SqlServer
 
 - ASP.NET Core com .NET 5
 - SQL Server
+- Entity FrameworkCore
 - Injeção de Dependência
 - Programação Orientada a Objetos
 - Padrão Repository
